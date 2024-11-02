@@ -7,7 +7,7 @@ import (
 )
 
 type Todo struct {
-	id string
+	id uuid.UUID
 	title string
 	description string
 	priorityID string
@@ -15,13 +15,13 @@ type Todo struct {
 }
 
 func NewTodo(title, description, priorityID, statusID string) (*Todo, error) {
-	primaryKey, err := uuid.NewRandom()
+	primaryKey, err := uuid.NewV7()
 	if err != nil {
 		return nil, fmt.Errorf("error generating primary key: %w", err)
 	}
 
 	return &Todo{
-		id: primaryKey.String(),
+		id: primaryKey,
 		title: title,
 		description: description,
 		priorityID: priorityID,
@@ -29,7 +29,7 @@ func NewTodo(title, description, priorityID, statusID string) (*Todo, error) {
 	}, nil
 }
 
-func (t *Todo) ID() string {
+func (t *Todo) ID() uuid.UUID {
 	return t.id
 }
 

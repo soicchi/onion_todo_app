@@ -7,18 +7,18 @@ import (
 )
 
 type Priority struct {
-	id string
+	id uuid.UUID
 	level string
 }
 
 func NewPriority(level string) (*Priority, error) {
-	primaryKey, err := uuid.New()
+	primaryKey, err := uuid.NewV7()
 	if err != nil {
 		return nil, fmt.Errorf("error generating primary key: %w", err)
 	}
 
 	return &Priority{
-		id: primaryKey.String(),
+		id: primaryKey,
 		level: level,
 	}, nil
 }

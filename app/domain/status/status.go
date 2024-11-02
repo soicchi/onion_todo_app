@@ -7,18 +7,18 @@ import (
 )
 
 type Status struct {
-	id string
+	id uuid.UUID
 	state string
 }
 
 func NewStatus(state string) (*Status, error) {
-	primaryKey, err := uuid.New()
+	primaryKey, err := uuid.NewV7()
 	if err != nil {
 		return nil, fmt.Errorf("error generating primary key: %w", err)
 	}
 
 	return &Status{
-		id: primaryKey.String(),
+		id: primaryKey,
 		state: state,
 	}, nil
 }
