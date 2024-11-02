@@ -7,11 +7,11 @@ import (
 )
 
 type Todo struct {
-	id uuid.UUID
-	title string
+	id          string
+	title       string
 	description string
-	priorityID string
-	statusID string
+	priorityID  string
+	statusID    string
 }
 
 func NewTodo(title, description, priorityID, statusID string) (*Todo, error) {
@@ -21,15 +21,15 @@ func NewTodo(title, description, priorityID, statusID string) (*Todo, error) {
 	}
 
 	return &Todo{
-		id: primaryKey,
-		title: title,
+		id:          primaryKey.String(),
+		title:       title,
 		description: description,
-		priorityID: priorityID,
-		statusID: statusID,
+		priorityID:  priorityID,
+		statusID:    statusID,
 	}, nil
 }
 
-func (t *Todo) ID() uuid.UUID {
+func (t *Todo) ID() string {
 	return t.id
 }
 

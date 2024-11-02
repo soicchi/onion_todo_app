@@ -16,8 +16,8 @@ type DBConfig struct {
 	port     int
 	user     string
 	password string
-	name   string
-	sslMode string
+	name     string
+	sslMode  string
 }
 
 func NewDBConfig() (*DBConfig, error) {
@@ -27,12 +27,12 @@ func NewDBConfig() (*DBConfig, error) {
 	}
 
 	return &DBConfig{
-		host: os.Getenv("DB_HOST"),
-		port: intPort,
-		user: os.Getenv("DB_USER"),
+		host:     os.Getenv("DB_HOST"),
+		port:     intPort,
+		user:     os.Getenv("DB_USER"),
 		password: os.Getenv("DB_PASSWORD"),
-		name: os.Getenv("DB_NAME"),
-		sslMode: os.Getenv("DB_SSL_MODE"),
+		name:     os.Getenv("DB_NAME"),
+		sslMode:  os.Getenv("DB_SSL_MODE"),
 	}, nil
 }
 
