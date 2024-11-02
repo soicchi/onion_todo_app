@@ -9,6 +9,7 @@ services:
       - 8080:8080
     volumes:
       - ./app:/app
+      - go_mod:/go/pkg/mod
     depends_on:
       - db
 
@@ -26,3 +27,4 @@ services:
 
 volumes:
   pg_data:
+  go_mod:
