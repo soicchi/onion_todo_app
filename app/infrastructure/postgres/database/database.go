@@ -1,4 +1,4 @@
-package postgres
+package database
 
 import (
 	"fmt"
@@ -45,6 +45,22 @@ func (dc *DBConfig) ConnectDB() error {
 	db, err = gorm.Open(postgres.Open(dc.dsn()), &gorm.Config{})
 	if err != nil {
 		return fmt.Errorf("failed to connect to database: %w", err)
+	}
+
+	return nil
+}
+
+func GetDB() *gorm.DB {
+	return db
+}
+
+func Migrate() error {
+	if err := db.AutoMigrate(
+		&Status{},
+		&Priority{},
+		&Todo{},
+	); err != nil {
+		return fmt.Errorf("failed to migrate database: %w", err)
 	}
 
 	return nil
