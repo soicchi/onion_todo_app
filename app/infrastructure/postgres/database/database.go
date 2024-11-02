@@ -23,7 +23,7 @@ type DBConfig struct {
 func NewDBConfig() (*DBConfig, error) {
 	intPort, err := strconv.Atoi(os.Getenv("DB_PORT"))
 	if err != nil {
-		fmt.Errorf("failed to convert port to int: %w", err)
+		return nil, fmt.Errorf("failed to convert port to int: %w", err)
 	}
 
 	return &DBConfig{

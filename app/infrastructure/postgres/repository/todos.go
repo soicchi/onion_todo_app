@@ -3,7 +3,7 @@ package todos
 import (
 	"fmt"
 
-	"onion_todo_app/domain/todo"
+	domain "onion_todo_app/domain/todo"
 	"onion_todo_app/infrastructure/postgres/database"
 
 	"github.com/labstack/echo/v4"
@@ -11,18 +11,19 @@ import (
 
 type TodoRepository struct{}
 
-func (tr *TodoRepository) Create(ctx echo.Context, todo *todo.Todo) error {
+func (tr TodoRepository) Create(ctx echo.Context, todo *domain.Todo) error {
 	// Get the database connection
-	db := getDB()
-	todoModel := &database.Todo{
-		ID:          todo.ID(),
+	db := database.GetDB()
+
+	if err := db.Create(&database.Todo{
+		Base: database.Base{
+			ID: todo.ID(),
+		},
 		Title:       todo.Title(),
 		Description: todo.Description(),
-		StatusID:    todo.StatusID(),
 		PriorityID:  todo.PriorityID(),
-	}
-
-	if err := db.Create(todoModel).Error; err != nil {
+		StatusID:    todo.StatusID(),
+	}).Error; err != nil {
 		return fmt.Errorf("failed to create todo: %w", err)
 	}
 

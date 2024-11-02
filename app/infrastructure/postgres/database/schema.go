@@ -8,12 +8,12 @@ import (
 
 type Base struct {
 	ID        uuid.UUID `gorm:"type:uuid;primaryKey"`
-	CreatedAt time.Time `gorm:"type:timestamp;not null"`
-	UpdatedAt time.Time `gorm:"type:timestamp;not null"`
+	CreatedAt time.Time `gorm:"type:timestamp;not null;autoCreateTime"`
+	UpdatedAt time.Time `gorm:"type:timestamp;not null;autoUpdateTime"`
 }
 
 type Todo struct {
-	Base        `gorm:"embedded"`
+	Base
 	Title       string    `gorm:"type:varchar(255)"`
 	Description string    `gorm:"type:text"`
 	StatusID    uuid.UUID `gorm:"type:uuid"`
@@ -21,13 +21,13 @@ type Todo struct {
 }
 
 type Status struct {
-	Base  `gorm:"embedded"`
+	Base
 	State string `gorm:"type:varchar(64);unique;not null"`
 	Todos []Todo `gorm:"foreignKey:StatusID"`
 }
 
 type Priority struct {
-	Base  `gorm:"embedded"`
+	Base
 	Level string `gorm:"type:varchar(32);unique;not null"`
 	Todos []Todo `gorm:"foreignKey:PriorityID"`
 }

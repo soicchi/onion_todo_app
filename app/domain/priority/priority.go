@@ -7,7 +7,7 @@ import (
 )
 
 type Priority struct {
-	id    string
+	id    uuid.UUID
 	level string
 }
 
@@ -18,12 +18,12 @@ func NewPriority(level string) (*Priority, error) {
 	}
 
 	return &Priority{
-		id:    primaryKey.String(),
+		id:    primaryKey,
 		level: level,
 	}, nil
 }
 
-func (p *Priority) ID() string {
+func (p *Priority) ID() uuid.UUID {
 	return p.id
 }
 

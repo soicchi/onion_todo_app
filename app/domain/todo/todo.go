@@ -7,11 +7,11 @@ import (
 )
 
 type Todo struct {
-	id          string
+	id          uuid.UUID
 	title       string
 	description string
-	priorityID  string
-	statusID    string
+	priorityID  uuid.UUID
+	statusID    uuid.UUID
 }
 
 func NewTodo(title, description, priorityID, statusID string) (*Todo, error) {
@@ -20,16 +20,26 @@ func NewTodo(title, description, priorityID, statusID string) (*Todo, error) {
 		return nil, fmt.Errorf("error generating primary key: %w", err)
 	}
 
+	priorityUUID, err := uuid.Parse(priorityID)
+	if err != nil {
+		return nil, fmt.Errorf("error parsing priority ID: %w", err)
+	}
+
+	statusUUID, err := uuid.Parse(statusID)
+	if err != nil {
+		return nil, fmt.Errorf("error parsing status ID: %w", err)
+	}
+
 	return &Todo{
-		id:          primaryKey.String(),
+		id:          primaryKey,
 		title:       title,
 		description: description,
-		priorityID:  priorityID,
-		statusID:    statusID,
+		priorityID:  priorityUUID,
+		statusID:    statusUUID,
 	}, nil
 }
 
-func (t *Todo) ID() string {
+func (t *Todo) ID() uuid.UUID {
 	return t.id
 }
 
@@ -41,10 +51,10 @@ func (t *Todo) Description() string {
 	return t.description
 }
 
-func (t *Todo) PriorityID() string {
+func (t *Todo) PriorityID() uuid.UUID {
 	return t.priorityID
 }
 
-func (t *Todo) StatusID() string {
+func (t *Todo) StatusID() uuid.UUID {
 	return t.statusID
 }

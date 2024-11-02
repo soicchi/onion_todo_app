@@ -7,7 +7,7 @@ import (
 )
 
 type Status struct {
-	id    string
+	id    uuid.UUID
 	state string
 }
 
@@ -18,12 +18,12 @@ func NewStatus(state string) (*Status, error) {
 	}
 
 	return &Status{
-		id:    primaryKey.String(),
+		id:    primaryKey,
 		state: state,
 	}, nil
 }
 
-func (s *Status) ID() string {
+func (s *Status) ID() uuid.UUID {
 	return s.id
 }
 
