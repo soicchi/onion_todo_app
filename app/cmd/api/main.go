@@ -2,6 +2,7 @@ package main
 
 import (
 	"onion_todo_app/infrastructure/postgres/database"
+	"onion_todo_app/presentation/router"
 	"onion_todo_app/presentation/validator"
 
 	"github.com/labstack/echo/v4"
@@ -23,7 +24,10 @@ func main() {
 		panic(err)
 	}
 
+	// Initialize router
 	e := echo.New()
 	e.Validator = validator.NewValidator()
+	router.NewRouter(e)
+
 	e.Logger.Fatal(e.Start(":8080"))
 }
