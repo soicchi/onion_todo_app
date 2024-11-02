@@ -2,6 +2,7 @@ package main
 
 import (
 	"onion_todo_app/infrastructure/postgres/database"
+	"onion_todo_app/presentation/validator"
 
 	"github.com/labstack/echo/v4"
 )
@@ -23,5 +24,6 @@ func main() {
 	}
 
 	e := echo.New()
+	e.Validator = validator.NewValidator()
 	e.Logger.Fatal(e.Start(":8080"))
 }
