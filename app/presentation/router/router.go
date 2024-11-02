@@ -1,6 +1,7 @@
 package router
 
 import (
+	"onion_todo_app/presentation/handlers/status"
 	"onion_todo_app/presentation/handlers/todo"
 
 	"github.com/labstack/echo/v4"
@@ -18,4 +19,11 @@ func TodoRouter(e *echo.Echo, group *echo.Group) {
 
 	handler := todo.NewHandler()
 	todoGroup.POST("/", handler.CreateTodo)
+}
+
+func StatusRouter(e *echo.Echo, group *echo.Group) {
+	statusGroup := e.Group("/statuses")
+
+	handler := status.NewHandler()
+	statusGroup.POST("/", handler.CreateStatus)
 }
