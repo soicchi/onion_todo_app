@@ -12,6 +12,10 @@ type Status struct {
 }
 
 func NewStatus(state string) (*Status, error) {
+	if state == "" {
+		return nil, fmt.Errorf("state cannot be empty")
+	}
+
 	primaryKey, err := uuid.NewV7()
 	if err != nil {
 		return nil, fmt.Errorf("error generating primary key: %w", err)
