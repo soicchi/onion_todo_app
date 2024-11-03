@@ -29,5 +29,9 @@ func main() {
 	e.Validator = validator.NewValidator()
 	router.NewRouter(e)
 
+	for _, router := range e.Routes() {
+		println(router.Method, router.Path)
+	}
+
 	e.Logger.Fatal(e.Start(":8080"))
 }

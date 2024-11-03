@@ -9,29 +9,32 @@ import (
 )
 
 func NewRouter(e *echo.Echo) {
+
 	const basePath = "/api/v1"
 	baseGroup := e.Group(basePath)
 
-	TodoRouter(e, baseGroup)
+	TodoRouter(baseGroup)
+	StatusRouter(baseGroup)
+	PriorityRouter(baseGroup)
 }
 
-func TodoRouter(e *echo.Echo, group *echo.Group) {
-	todoGroup := e.Group("/todos")
+func TodoRouter(group *echo.Group) {
+	todoGroup := group.Group("/todos")
 
 	handler := todo.NewHandler()
 	todoGroup.POST("/", handler.CreateTodo)
 	todoGroup.GET("/", handler.FetchAllTodos)
 }
 
-func StatusRouter(e *echo.Echo, group *echo.Group) {
-	statusGroup := e.Group("/statuses")
+func StatusRouter(group *echo.Group) {
+	statusGroup := group.Group("/statuses")
 
 	handler := status.NewHandler()
 	statusGroup.POST("/", handler.CreateStatus)
 }
 
-func PriorityRouter(e *echo.Echo, group *echo.Group) {
-	priorityGroup := e.Group("/priorities")
+func PriorityRouter(group *echo.Group) {
+	priorityGroup := group.Group("/priorities")
 
 	handler := priority.NewHandler()
 	priorityGroup.POST("/", handler.CreatePriority)

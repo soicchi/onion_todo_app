@@ -18,25 +18,25 @@ func NewFetchAllTodosUseCase() *FetchAllTodosUseCase {
 }
 
 type fetchAllPriorityOutputDTO struct {
-	ID    string
-	Level string
+	ID    string `json:"id"`
+	Level string `json:"level"`
 }
 
 type fetchAllStatusOutputDTO struct {
-	ID    string
-	State string
+	ID    string `json:"id"`
+	State string `json:"state"`
 }
 
 type fetchAllTodoOutputDTO struct {
-	ID          string
-	Title       string
-	Description string
-	Priority    fetchAllPriorityOutputDTO
-	Status      fetchAllStatusOutputDTO
+	ID          string                    `json:"id"`
+	Title       string                    `json:"title"`
+	Description string                    `json:"description"`
+	Priority    fetchAllPriorityOutputDTO `json:"priority"`
+	Status      fetchAllStatusOutputDTO   `json:"status"`
 }
 
 type FetchAllTodosOutputDTO struct {
-	Todos []fetchAllTodoOutputDTO
+	Todos []fetchAllTodoOutputDTO `json:"todos"`
 }
 
 func (uc *FetchAllTodosUseCase) Execute(ctx echo.Context) (*FetchAllTodosOutputDTO, error) {
@@ -45,9 +45,15 @@ func (uc *FetchAllTodosUseCase) Execute(ctx echo.Context) (*FetchAllTodosOutputD
 		return nil, err
 	}
 
-	var dto *FetchAllTodosOutputDTO
+	return uc.constructDTO(todos), nil
+}
+
+func (uc *FetchAllTodosUseCase) constructDTO(todos []*todo.TodoDetail) *FetchAllTodosOutputDTO {
+	var dto FetchAllTodosOutputDTO
+	dtoTodos := make([]fetchAllTodoOutputDTO, 0, len(todos))
+
 	for _, t := range todos {
-		dto.Todos = append(dto.Todos, fetchAllTodoOutputDTO{
+		dtoTodos = append(dtoTodos, fetchAllTodoOutputDTO{
 			ID:          t.ID().String(),
 			Title:       t.Title(),
 			Description: t.Description(),
@@ -61,6 +67,7 @@ func (uc *FetchAllTodosUseCase) Execute(ctx echo.Context) (*FetchAllTodosOutputD
 			},
 		})
 	}
+	dto.Todos = dtoTodos
 
-	return dto, nil
+	return &dto
 }
