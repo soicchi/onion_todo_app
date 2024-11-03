@@ -19,7 +19,7 @@ func NewHandler() *Handler {
 }
 
 func (h *Handler) CreateTodo(ctx echo.Context) error {
-	var req CreateRequest
+	var req CreateTodoRequest
 	if err := ctx.Bind(&req); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}

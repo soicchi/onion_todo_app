@@ -1,6 +1,6 @@
 package todo
 
-type CreateRequest struct {
+type CreateTodoRequest struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
 	PriorityID  string `json:"priority_id" validate:"required"`
