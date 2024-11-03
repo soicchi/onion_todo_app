@@ -20,6 +20,7 @@ func TodoRouter(e *echo.Echo, group *echo.Group) {
 
 	handler := todo.NewHandler()
 	todoGroup.POST("/", handler.CreateTodo)
+	todoGroup.GET("/", handler.FetchAllTodos)
 }
 
 func StatusRouter(e *echo.Echo, group *echo.Group) {

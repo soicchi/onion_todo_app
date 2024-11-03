@@ -3,18 +3,20 @@ package todo
 import (
 	"net/http"
 
-	useCase "onion_todo_app/usecase/todo"
+	"onion_todo_app/usecase/todo"
 
 	"github.com/labstack/echo/v4"
 )
 
 type Handler struct {
-	createTodoUseCase *useCase.CreateTodoUseCase
+	createTodoUseCase    *todo.CreateTodoUseCase
+	fetchAllTodosUseCase *todo.FetchAllTodosUseCase
 }
 
 func NewHandler() *Handler {
 	return &Handler{
-		createTodoUseCase: useCase.NewCreateTodoUseCase(),
+		createTodoUseCase:    todo.NewCreateTodoUseCase(),
+		fetchAllTodosUseCase: todo.NewFetchAllTodosUseCase(),
 	}
 }
 
@@ -28,7 +30,7 @@ func (h *Handler) CreateTodo(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	dto := useCase.CreateTodoInputDTO{
+	dto := todo.CreateTodoInputDTO{
 		Title:       req.Title,
 		Description: req.Description,
 		PriorityID:  req.PriorityID,
@@ -40,4 +42,13 @@ func (h *Handler) CreateTodo(ctx echo.Context) error {
 	}
 
 	return ctx.JSON(http.StatusCreated, nil)
+}
+
+func (h *Handler) FetchAllTodos(ctx echo.Context) error {
+	dto, err := h.fetchAllTodosUseCase.Execute(ctx)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	return ctx.JSON(http.StatusOK, dto)
 }
