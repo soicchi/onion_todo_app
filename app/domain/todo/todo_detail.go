@@ -25,3 +25,31 @@ func ReconstructTodoDetail(id, priorityID, statusID uuid.UUID, title, descriptio
 		status:      status,
 	}
 }
+
+func (td *TodoDetail) ID() uuid.UUID {
+	return td.id
+}
+
+func (td *TodoDetail) PriorityID() uuid.UUID {
+	return td.priorityID
+}
+
+func (td *TodoDetail) StatusID() uuid.UUID {
+	return td.statusID
+}
+
+func (td *TodoDetail) Title() string {
+	return td.title
+}
+
+func (td *TodoDetail) Description() string {
+	return td.description
+}
+
+func (td *TodoDetail) Priority() string {
+	return td.priority
+}
+
+func (td *TodoDetail) Status() string {
+	return td.status
+}

@@ -6,4 +6,5 @@ import (
 
 type TodoRepository interface {
 	Create(ctx echo.Context, todo *Todo) error
+	FetchAll(ctx echo.Context) ([]*TodoDetail, error)
 }
