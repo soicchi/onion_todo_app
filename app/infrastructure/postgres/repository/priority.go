@@ -11,7 +11,7 @@ import (
 
 type PriorityRepository struct{}
 
-func (pr *PriorityRepository) Create(ctx echo.Context, priority *domain.Priority) error {
+func (pr PriorityRepository) Create(ctx echo.Context, priority *domain.Priority) error {
 	db := database.GetDB()
 
 	if err := db.Create(&database.Priority{
