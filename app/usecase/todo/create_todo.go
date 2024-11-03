@@ -3,19 +3,19 @@ package todo
 import (
 	"fmt"
 
-	domain "onion_todo_app/domain/todo"
-	repo "onion_todo_app/infrastructure/postgres/repository"
+	"onion_todo_app/domain/todo"
+	"onion_todo_app/infrastructure/postgres/repository"
 
 	"github.com/labstack/echo/v4"
 )
 
 type CreateTodoUseCase struct {
-	todoRepository domain.TodoRepository
+	todoRepository todo.TodoRepository
 }
 
 func NewCreateTodoUseCase() *CreateTodoUseCase {
 	return &CreateTodoUseCase{
-		todoRepository: repo.TodoRepository{},
+		todoRepository: repository.TodoRepository{},
 	}
 }
 
@@ -27,7 +27,7 @@ type CreateTodoInputDTO struct {
 }
 
 func (uc *CreateTodoUseCase) Execute(ctx echo.Context, dto CreateTodoInputDTO) error {
-	todo, err := domain.NewTodo(dto.Title, dto.Description, dto.PriorityID, dto.StatusID)
+	todo, err := todo.NewTodo(dto.Title, dto.Description, dto.PriorityID, dto.StatusID)
 	if err != nil {
 		return fmt.Errorf("error creating new todo: %w", err)
 	}

@@ -18,6 +18,8 @@ type Todo struct {
 	Description string    `gorm:"type:text"`
 	StatusID    uuid.UUID `gorm:"type:uuid"`
 	PriorityID  uuid.UUID `gorm:"type:uuid"`
+	Status      *Status
+	Priority    *Priority
 }
 
 type Status struct {

@@ -1,9 +1,9 @@
 package router
 
 import (
+	"onion_todo_app/presentation/handlers/priority"
 	"onion_todo_app/presentation/handlers/status"
 	"onion_todo_app/presentation/handlers/todo"
-	"onion_todo_app/presentation/handlers/priority"
 
 	"github.com/labstack/echo/v4"
 )

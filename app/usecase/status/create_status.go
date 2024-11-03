@@ -3,19 +3,19 @@ package status
 import (
 	"fmt"
 
-	domain "onion_todo_app/domain/status"
-	repo "onion_todo_app/infrastructure/postgres/repository"
+	"onion_todo_app/domain/status"
+	"onion_todo_app/infrastructure/postgres/repository"
 
 	"github.com/labstack/echo/v4"
 )
 
 type CreateStatusUseCase struct {
-	statusRepository domain.StatusRepository
+	statusRepository status.StatusRepository
 }
 
 func NewCreateStatusUseCase() *CreateStatusUseCase {
 	return &CreateStatusUseCase{
-		statusRepository: repo.StatusRepository{},
+		statusRepository: repository.StatusRepository{},
 	}
 }
 
@@ -24,7 +24,7 @@ type CreateStatusInputDTO struct {
 }
 
 func (uc *CreateStatusUseCase) Execute(ctx echo.Context, dto CreateStatusInputDTO) error {
-	status, err := domain.NewStatus(dto.State)
+	status, err := status.NewStatus(dto.State)
 	if err != nil {
 		return fmt.Errorf("error creating new status: %w", err)
 	}
