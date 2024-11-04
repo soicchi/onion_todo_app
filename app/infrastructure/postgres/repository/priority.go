@@ -3,7 +3,7 @@ package repository
 import (
 	"fmt"
 
-	domain "onion_todo_app/domain/priority"
+	"onion_todo_app/domain/entity"
 	"onion_todo_app/infrastructure/postgres/database"
 
 	"github.com/labstack/echo/v4"
@@ -17,7 +17,7 @@ func NewPriorityRepository() *PriorityRepository {
 	return &PriorityRepository{dbConn: database.DB{}}
 }
 
-func (pr PriorityRepository) Create(ctx echo.Context, priority *domain.Priority) error {
+func (pr *PriorityRepository) Create(ctx echo.Context, priority *entity.Priority) error {
 	db := pr.dbConn.GetDB(ctx)
 
 	if err := db.Create(&database.Priority{

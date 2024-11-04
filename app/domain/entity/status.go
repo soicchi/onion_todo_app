@@ -1,4 +1,4 @@
-package status
+package entity
 
 import (
 	"fmt"
@@ -21,10 +21,18 @@ func NewStatus(state string) (*Status, error) {
 		return nil, fmt.Errorf("error generating primary key: %w", err)
 	}
 
+	return newStatus(primaryKey, state), nil
+}
+
+func ReconstructStatus(id uuid.UUID, state string) *Status {
+	return newStatus(id, state)
+}
+
+func newStatus(id uuid.UUID, state string) *Status {
 	return &Status{
-		id:    primaryKey,
+		id:    id,
 		state: state,
-	}, nil
+	}
 }
 
 func (s *Status) ID() uuid.UUID {

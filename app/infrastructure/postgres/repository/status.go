@@ -3,7 +3,7 @@ package repository
 import (
 	"fmt"
 
-	domain "onion_todo_app/domain/status"
+	"onion_todo_app/domain/entity"
 	"onion_todo_app/infrastructure/postgres/database"
 
 	"github.com/labstack/echo/v4"
@@ -17,7 +17,7 @@ func NewStatusRepository() *StatusRepository {
 	return &StatusRepository{dbConn: database.DB{}}
 }
 
-func (sr StatusRepository) Create(ctx echo.Context, status *domain.Status) error {
+func (sr *StatusRepository) Create(ctx echo.Context, status *entity.Status) error {
 	// Get the database connection
 	db := sr.dbConn.GetDB(ctx)
 

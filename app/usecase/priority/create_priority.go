@@ -1,14 +1,14 @@
 package priority
 
 import (
-	"onion_todo_app/domain/priority"
+	"onion_todo_app/domain/entity"
 	"onion_todo_app/infrastructure/postgres/repository"
 
 	"github.com/labstack/echo/v4"
 )
 
 type CreatePriorityUseCase struct {
-	PriorityRepository priority.PriorityRepository
+	PriorityRepository entity.PriorityRepository
 }
 
 func NewCreatePriorityUseCase() *CreatePriorityUseCase {
@@ -22,7 +22,7 @@ type CreatePriorityInputDTO struct {
 }
 
 func (uc *CreatePriorityUseCase) Execute(ctx echo.Context, dto CreatePriorityInputDTO) error {
-	priority, err := priority.NewPriority(dto.Level)
+	priority, err := entity.NewPriority(dto.Level)
 	if err != nil {
 		return err
 	}

@@ -1,4 +1,4 @@
-package priority
+package entity
 
 import (
 	"fmt"
@@ -17,10 +17,18 @@ func NewPriority(level string) (*Priority, error) {
 		return nil, fmt.Errorf("error generating primary key: %w", err)
 	}
 
+	return newPriority(primaryKey, level), nil
+}
+
+func ReconstructPriority(id uuid.UUID, level string) *Priority {
+	return newPriority(id, level)
+}
+
+func newPriority(id uuid.UUID, level string) *Priority {
 	return &Priority{
-		id:    primaryKey,
+		id:    id,
 		level: level,
-	}, nil
+	}
 }
 
 func (p *Priority) ID() uuid.UUID {

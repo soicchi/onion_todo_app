@@ -1,14 +1,14 @@
 package todo
 
 import (
-	"onion_todo_app/domain/todo"
+	"onion_todo_app/domain/entity"
 	"onion_todo_app/infrastructure/postgres/repository"
 
 	"github.com/labstack/echo/v4"
 )
 
 type FetchAllTodosUseCase struct {
-	todoRepository todo.TodoRepository
+	todoRepository entity.TodoRepository
 }
 
 func NewFetchAllTodosUseCase() *FetchAllTodosUseCase {
@@ -48,22 +48,22 @@ func (uc *FetchAllTodosUseCase) Execute(ctx echo.Context) (*FetchAllTodosOutputD
 	return uc.constructDTO(todos), nil
 }
 
-func (uc *FetchAllTodosUseCase) constructDTO(todos []*todo.TodoDetail) *FetchAllTodosOutputDTO {
+func (uc *FetchAllTodosUseCase) constructDTO(todos []*entity.TodoDetail) *FetchAllTodosOutputDTO {
 	var dto FetchAllTodosOutputDTO
 	dtoTodos := make([]fetchAllTodoOutputDTO, 0, len(todos))
 
 	for _, t := range todos {
 		dtoTodos = append(dtoTodos, fetchAllTodoOutputDTO{
-			ID:          t.ID().String(),
-			Title:       t.Title(),
-			Description: t.Description(),
+			ID:          t.Todo().ID().String(),
+			Title:       t.Todo().Title(),
+			Description: t.Todo().Description(),
 			Priority: fetchAllPriorityOutputDTO{
-				ID:    t.PriorityID().String(),
-				Level: t.Priority(),
+				ID:    t.Priority().ID().String(),
+				Level: t.Priority().Level(),
 			},
 			Status: fetchAllStatusOutputDTO{
-				ID:    t.StatusID().String(),
-				State: t.Status(),
+				ID:    t.Status().ID().String(),
+				State: t.Status().State(),
 			},
 		})
 	}
