@@ -9,10 +9,16 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type PriorityRepository struct{}
+type PriorityRepository struct {
+	dbConn dbConnector
+}
+
+func NewPriorityRepository() *PriorityRepository {
+	return &PriorityRepository{dbConn: database.DB{}}
+}
 
 func (pr PriorityRepository) Create(ctx echo.Context, priority *domain.Priority) error {
-	db := database.GetDB()
+	db := pr.dbConn.GetDB(ctx)
 
 	if err := db.Create(&database.Priority{
 		Base: database.Base{

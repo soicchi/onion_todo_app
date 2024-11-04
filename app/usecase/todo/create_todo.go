@@ -15,7 +15,7 @@ type CreateTodoUseCase struct {
 
 func NewCreateTodoUseCase() *CreateTodoUseCase {
 	return &CreateTodoUseCase{
-		todoRepository: repository.TodoRepository{},
+		todoRepository: repository.NewTodoRepository(),
 	}
 }
 

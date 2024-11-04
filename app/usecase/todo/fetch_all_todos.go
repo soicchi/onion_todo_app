@@ -13,7 +13,7 @@ type FetchAllTodosUseCase struct {
 
 func NewFetchAllTodosUseCase() *FetchAllTodosUseCase {
 	return &FetchAllTodosUseCase{
-		todoRepository: repository.TodoRepository{},
+		todoRepository: repository.NewTodoRepository(),
 	}
 }
 

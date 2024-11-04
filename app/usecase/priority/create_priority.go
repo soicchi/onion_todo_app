@@ -13,7 +13,7 @@ type CreatePriorityUseCase struct {
 
 func NewCreatePriorityUseCase() *CreatePriorityUseCase {
 	return &CreatePriorityUseCase{
-		PriorityRepository: repository.PriorityRepository{},
+		PriorityRepository: repository.NewPriorityRepository(),
 	}
 }
 

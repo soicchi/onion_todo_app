@@ -9,11 +9,17 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type StatusRepository struct{}
+type StatusRepository struct {
+	dbConn dbConnector
+}
+
+func NewStatusRepository() *StatusRepository {
+	return &StatusRepository{dbConn: database.DB{}}
+}
 
 func (sr StatusRepository) Create(ctx echo.Context, status *domain.Status) error {
 	// Get the database connection
-	db := database.GetDB()
+	db := sr.dbConn.GetDB(ctx)
 
 	if err := db.Create(&database.Status{
 		Base: database.Base{

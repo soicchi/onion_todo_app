@@ -15,7 +15,7 @@ type CreateStatusUseCase struct {
 
 func NewCreateStatusUseCase() *CreateStatusUseCase {
 	return &CreateStatusUseCase{
-		statusRepository: repository.StatusRepository{},
+		statusRepository: repository.NewStatusRepository(),
 	}
 }
 

@@ -10,11 +10,17 @@ import (
 	"gorm.io/gorm"
 )
 
-type TodoRepository struct{}
+type TodoRepository struct {
+	dbConn dbConnector
+}
+
+func NewTodoRepository() *TodoRepository {
+	return &TodoRepository{dbConn: database.DB{}}
+}
 
 func (tr TodoRepository) Create(ctx echo.Context, todo *todo.Todo) error {
 	// Get the database connection
-	db := database.GetDB()
+	db := tr.dbConn.GetDB(ctx)
 
 	if err := db.Create(&database.Todo{
 		Base: database.Base{
@@ -32,7 +38,7 @@ func (tr TodoRepository) Create(ctx echo.Context, todo *todo.Todo) error {
 }
 
 func (tr TodoRepository) FetchAll(ctx echo.Context) ([]*todo.TodoDetail, error) {
-	db := database.GetDB()
+	db := tr.dbConn.GetDB(ctx)
 
 	var todos []*database.Todo
 	if err := db.Preload("Priority", func(db *gorm.DB) *gorm.DB {

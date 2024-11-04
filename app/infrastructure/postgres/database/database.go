@@ -5,9 +5,12 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/labstack/echo/v4"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
+
+type DB struct{}
 
 var db *gorm.DB
 
@@ -50,7 +53,7 @@ func (dc *DBConfig) ConnectDB() error {
 	return nil
 }
 
-func GetDB() *gorm.DB {
+func (d DB) GetDB(ctx echo.Context) *gorm.DB {
 	return db
 }
 
