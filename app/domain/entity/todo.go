@@ -11,8 +11,8 @@ type Todo struct {
 	id          uuid.UUID
 	title       string
 	description string
-	createdAt time.Time
-	updatedAt time.Time
+	createdAt time.Time // zero value when it is initialized
+	updatedAt time.Time // zero value when it is initialized
 }
 
 func NewTodo(title, description string) (*Todo, error) {

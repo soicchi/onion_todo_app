@@ -10,8 +10,8 @@ import (
 type Priority struct {
 	id    uuid.UUID
 	level string
-	createdAt time.Time
-	updatedAt time.Time
+	createdAt time.Time // zero value when it is initialized
+	updatedAt time.Time // zero value when it is initialized
 }
 
 func NewPriority(level string) (*Priority, error) {

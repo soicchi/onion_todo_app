@@ -10,8 +10,8 @@ import (
 type Status struct {
 	id    uuid.UUID
 	state string
-	createdAt time.Time
-	updatedAt time.Time
+	createdAt time.Time // zero value when it is initialized
+	updatedAt time.Time // zero value when it is initialized
 }
 
 func NewStatus(state string) (*Status, error) {
