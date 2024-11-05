@@ -8,8 +8,8 @@ import (
 )
 
 type Priority struct {
-	id    uuid.UUID
-	level string
+	id        uuid.UUID
+	level     string
 	createdAt time.Time // zero value when it is initialized
 	updatedAt time.Time // zero value when it is initialized
 }

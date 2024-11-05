@@ -8,8 +8,8 @@ import (
 )
 
 type Status struct {
-	id    uuid.UUID
-	state string
+	id        uuid.UUID
+	state     string
 	createdAt time.Time // zero value when it is initialized
 	updatedAt time.Time // zero value when it is initialized
 }
