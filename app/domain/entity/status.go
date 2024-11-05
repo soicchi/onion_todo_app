@@ -2,6 +2,7 @@ package entity
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/google/uuid"
 )
@@ -9,6 +10,8 @@ import (
 type Status struct {
 	id    uuid.UUID
 	state string
+	createdAt time.Time
+	updatedAt time.Time
 }
 
 func NewStatus(state string) (*Status, error) {
@@ -41,4 +44,12 @@ func (s *Status) ID() uuid.UUID {
 
 func (s *Status) State() string {
 	return s.state
+}
+
+func (s *Status) CreatedAt() time.Time {
+	return s.createdAt
+}
+
+func (s *Status) UpdatedAt() time.Time {
+	return s.updatedAt
 }

@@ -2,6 +2,7 @@ package entity
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/google/uuid"
 )
@@ -9,6 +10,8 @@ import (
 type Priority struct {
 	id    uuid.UUID
 	level string
+	createdAt time.Time
+	updatedAt time.Time
 }
 
 func NewPriority(level string) (*Priority, error) {
@@ -37,4 +40,12 @@ func (p *Priority) ID() uuid.UUID {
 
 func (p *Priority) Level() string {
 	return p.level
+}
+
+func (p *Priority) CreatedAt() time.Time {
+	return p.createdAt
+}
+
+func (p *Priority) UpdatedAt() time.Time {
+	return p.updatedAt
 }

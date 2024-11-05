@@ -2,6 +2,7 @@ package entity
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/google/uuid"
 )
@@ -10,6 +11,8 @@ type Todo struct {
 	id          uuid.UUID
 	title       string
 	description string
+	createdAt time.Time
+	updatedAt time.Time
 }
 
 func NewTodo(title, description string) (*Todo, error) {
@@ -43,4 +46,12 @@ func (t *Todo) Title() string {
 
 func (t *Todo) Description() string {
 	return t.description
+}
+
+func (t *Todo) CreatedAt() time.Time {
+	return t.createdAt
+}
+
+func (t *Todo) UpdatedAt() time.Time {
+	return t.updatedAt
 }
