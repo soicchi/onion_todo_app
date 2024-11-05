@@ -28,6 +28,7 @@ type CreateTodoInputDTO struct {
 }
 
 func (uc *CreateTodoUseCase) Execute(ctx echo.Context, dto CreateTodoInputDTO) error {
+	// convert DTO to domain object
 	todo, err := entity.NewTodo(dto.Title, dto.Description)
 	if err != nil {
 		return fmt.Errorf("error creating new todo: %w", err)

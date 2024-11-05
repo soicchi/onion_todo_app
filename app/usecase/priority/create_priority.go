@@ -22,6 +22,7 @@ type CreatePriorityInputDTO struct {
 }
 
 func (uc *CreatePriorityUseCase) Execute(ctx echo.Context, dto CreatePriorityInputDTO) error {
+	// convert DTO to domain object
 	priority, err := entity.NewPriority(dto.Level)
 	if err != nil {
 		return err

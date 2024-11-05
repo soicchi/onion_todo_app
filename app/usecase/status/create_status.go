@@ -24,6 +24,7 @@ type CreateStatusInputDTO struct {
 }
 
 func (uc *CreateStatusUseCase) Execute(ctx echo.Context, dto CreateStatusInputDTO) error {
+	// convert DTO to domain object
 	status, err := entity.NewStatus(dto.State)
 	if err != nil {
 		return fmt.Errorf("error creating new status: %w", err)
